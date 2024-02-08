@@ -6,7 +6,7 @@ const Pokedex = () => {
     const [pokemonData, setPokemonData] = useState(null)
     const [error, setError] = useState(null)
 
-    useEffect(() => {
+    useEffect(() => {  // mi deve varivare i dati ottenuti al caricamento di questo componente
         if (pokemonData)
             console.log('nome pokemon caricato', pokemonData);
     }, [pokemonData])
@@ -16,10 +16,10 @@ const Pokedex = () => {
             if (pokemonName === "") {
                 setPokemonData(null)
                 setError('inserire un nome')
-                return
+                return //metto il return perche' senno va avanti e ceca nell array e poi crasha
             }
 
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)  // la variabile qui per renderlo dinamico e cercare il pokemon specifico
             const result = await response.json();
             if (response.ok) {
                 setPokemonData(result)
@@ -33,7 +33,7 @@ const Pokedex = () => {
     }
 
     const handlePokemonName = (event) => {
-        setPokemonName(event.target.value)
+        setPokemonName(event.target.value)  //perche il valore deve cambiare quando avviene un evento che targhettizza il valore
     }
 
     return (
@@ -47,7 +47,7 @@ const Pokedex = () => {
                 <h1>numero :{pokemonData.id}</h1>
                 <h1>altezza:{pokemonData.height}</h1>
                 <img src={pokemonData.sprites.front_default} alt="sprite" />
-                <h1>tipo: {pokemonData.types.map((tipo) => tipo.type.name).join(' - ')}</h1>
+                <h1>tipo: {pokemonData.types.map((tipo) => tipo.type.name).join(' - ')}</h1>  {/* il map per ottnere piu dati se ce ne fossero piu di 1 */}
             </div>}
 
 
@@ -56,3 +56,4 @@ const Pokedex = () => {
 }
 
 export default Pokedex
+// ricorda che devi fare l export senno non lo puoi caricare in altri file
